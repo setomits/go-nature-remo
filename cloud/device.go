@@ -3,6 +3,7 @@ package natureremocloud
 import (
 	"encoding/json"
 	"net/http"
+	"time"
 )
 
 type Device struct {
@@ -10,8 +11,8 @@ type Device struct {
 	Name              string       `json:"name"`
 	TemperatureOffset int32        `json:"temperature_offset"`
 	HumidityOffset    int32        `json:"humidity_offset"`
-	CreatedAt         string       `json:"created_at"`
-	UpdatedAt         string       `json:"updated_at"`
+	CreatedAt         *time.Time   `json:"created_at"`
+	UpdatedAt         *time.Time   `json:"updated_at"`
 	FirmwareVersion   string       `json:"firmware_version"`
 	NewestEvents      NewestEvents `json:"newest_events"`
 }
@@ -22,13 +23,13 @@ type NewestEvents struct {
 }
 
 type Temperature struct {
-	Value     float64 `json:"val"`
-	CreatedAt string  `json:"created_at"`
+	Value     float64    `json:"val"`
+	CreatedAt *time.Time `json:"created_at"`
 }
 
 type Humidity struct {
-	Value     int32  `json:"val"`
-	CreatedAt string `json:"created_at"`
+	Value     int32      `json:"val"`
+	CreatedAt *time.Time `json:"created_at"`
 }
 
 func (c *Client) GetDevices() ([]*Device, error) {
